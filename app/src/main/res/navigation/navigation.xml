@@ -9,5 +9,14 @@
         android:id="@+id/weatherListFragment"
         android:name="com.tkadela.capitalsweather.list.WeatherListFragment"
         android:label="WeatherListFragment"
-        tools:layout="@layout/fragment_weather_list"/>
+        tools:layout="@layout/fragment_weather_list">
+        <action
+            android:id="@+id/action_weatherListFragment_to_forecastDetailFragment"
+            app:destination="@id/forecastDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecastDetailFragment"
+        android:name="com.tkadela.capitalsweather.detail.ForecastDetailFragment"
+        android:label="ForecastDetailFragment"
+        tools:layout="@layout/fragment_forecast_detail"/>
 </navigation>

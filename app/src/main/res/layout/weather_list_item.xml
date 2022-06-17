@@ -24,7 +24,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/hiTempText"
+                android:id="@+id/detailHiTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -32,7 +32,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="86°F" />
+                tools:text="86°F / 57°F" />
 
             <TextView
                 android:id="@+id/cityStateText"
@@ -47,45 +47,35 @@
                 tools:text="Orland Park, IL" />
 
             <TextView
-                android:id="@+id/loTempLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lo_label"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/loTempText"
-                app:layout_constraintEnd_toEndOf="@+id/hiTempLabel"
-                app:layout_constraintStart_toStartOf="@+id/hiTempLabel" />
-
-            <TextView
                 android:id="@+id/precipLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:text="@string/precip_label"
                 android:textSize="16sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/precipText"
-                app:layout_constraintEnd_toEndOf="@+id/loTempLabel"
-                app:layout_constraintStart_toStartOf="@+id/loTempLabel" />
+                app:layout_constraintEnd_toStartOf="@+id/precipText" />
 
             <TextView
                 android:id="@+id/feelsLikeTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="italic"
-                app:layout_constraintBaseline_toBaselineOf="@+id/currentTempText"
                 app:layout_constraintStart_toEndOf="@+id/currentTempText"
+                app:layout_constraintTop_toTopOf="@+id/currentTempText"
                 tools:text="Feels Like 75°F" />
 
             <TextView
-                android:id="@+id/hiTempLabel"
+                android:id="@+id/detailHiTempLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="@string/hi_label"
+                android:text="@string/hi_lo_label"
                 android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/hiTempText"
-                app:layout_constraintEnd_toStartOf="@+id/hiTempText" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText"
+                app:layout_constraintEnd_toStartOf="@+id/detailHiTempText" />
 
             <TextView
                 android:id="@+id/precipText"
@@ -93,19 +83,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/loTempText"
-                app:layout_constraintTop_toBottomOf="@+id/loTempText"
+                app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
+                app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
                 tools:text="1%" />
-
-            <TextView
-                android:id="@+id/loTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/hiTempText"
-                app:layout_constraintTop_toBottomOf="@+id/hiTempText"
-                tools:text="57°F" />
 
             <TextView
                 android:id="@+id/currentTempText"
@@ -119,6 +99,15 @@
                 app:layout_constraintStart_toStartOf="@+id/cityStateText"
                 app:layout_constraintTop_toBottomOf="@+id/cityStateText"
                 tools:text="75°F" />
+
+            <TextView
+                android:id="@+id/updateDateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/precipText"
+                tools:text="Updated 2022.06.17 01:12" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
