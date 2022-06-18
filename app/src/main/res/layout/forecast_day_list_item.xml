@@ -25,7 +25,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/detailHiTempText"
+                android:id="@+id/detailHiLoTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -41,9 +41,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
-                app:layout_constraintStart_toStartOf="@+id/detailHiTempText"
-                app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
+                app:layout_constraintEnd_toEndOf="@+id/detailHiLoTempText"
+                app:layout_constraintStart_toStartOf="@+id/detailHiLoTempText"
+                app:layout_constraintTop_toBottomOf="@+id/detailHiLoTempText"
                 tools:text="57°F" />
 
             <TextView
@@ -57,12 +57,12 @@
                 app:layout_constraintStart_toStartOf="@+id/detailLoTempLabel" />
 
             <TextView
-                android:id="@+id/detailHiTempLabel"
+                android:id="@+id/detailHiLoTempLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hi_label"
                 android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText"
+                app:layout_constraintBaseline_toBaselineOf="@+id/detailHiLoTempText"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
@@ -73,8 +73,8 @@
                 android:text="@string/lo_label"
                 android:textSize="16sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText2"
-                app:layout_constraintEnd_toEndOf="@+id/detailHiTempLabel"
-                app:layout_constraintStart_toStartOf="@+id/detailHiTempLabel" />
+                app:layout_constraintEnd_toEndOf="@+id/detailHiLoTempLabel"
+                app:layout_constraintStart_toStartOf="@+id/detailHiLoTempLabel" />
 
             <TextView
                 android:id="@+id/precipText"

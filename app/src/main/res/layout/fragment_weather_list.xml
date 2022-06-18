@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.tkadela.capitalsweather.list.WeatherListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,9 +17,11 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weatherList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#3F51B5"
+            app:listData="@{viewModel.weatherData}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,115 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
+    <data>
+        <variable
+            name="weather"
+            type="com.tkadela.capitalsweather.domain.WeatherData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="#2196F3"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="#2196F3"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/detailHiTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="86°F / 57°F" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/cityStateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Orland Park, IL" />
+                <TextView
+                    android:id="@+id/detailHiLoTempText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textSize="18sp"
+                    app:hiTemp="@{weather.dailyForecast[0].hiTemp}"
+                    app:loTemp="@{weather.dailyForecast[0].loTemp}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="86°F / 57°F" />
 
-            <TextView
-                android:id="@+id/precipLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:text="@string/precip_label"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/precipText"
-                app:layout_constraintEnd_toStartOf="@+id/precipText" />
+                <TextView
+                    android:id="@+id/cityStateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:city="@{weather.locationCity}"
+                    app:state="@{weather.locationState}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Orland Park, IL" />
 
-            <TextView
-                android:id="@+id/feelsLikeTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textSize="16sp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toEndOf="@+id/currentTempText"
-                app:layout_constraintTop_toTopOf="@+id/currentTempText"
-                tools:text="Feels Like 75°F" />
+                <TextView
+                    android:id="@+id/precipLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/precip_label"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/precipText"
+                    app:layout_constraintEnd_toStartOf="@+id/precipText" />
 
-            <TextView
-                android:id="@+id/detailHiTempLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:text="@string/hi_lo_label"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText"
-                app:layout_constraintEnd_toStartOf="@+id/detailHiTempText" />
+                <TextView
+                    android:id="@+id/feelsLikeTempText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    app:feelTemp="@{weather.current.feelsLike}"
+                    app:layout_constraintStart_toEndOf="@+id/currentTempText"
+                    app:layout_constraintTop_toTopOf="@+id/currentTempText"
+                    tools:text="Feels Like 75°F" />
 
-            <TextView
-                android:id="@+id/precipText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
-                app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
-                tools:text="1%" />
+                <TextView
+                    android:id="@+id/detailHiLoTempLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/hi_lo_label"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/detailHiLoTempText"
+                    app:layout_constraintEnd_toStartOf="@+id/detailHiLoTempText" />
 
-            <TextView
-                android:id="@+id/currentTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/cityStateText"
-                app:layout_constraintTop_toBottomOf="@+id/cityStateText"
-                tools:text="75°F" />
+                <TextView
+                    android:id="@+id/precipText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18sp"
+                    app:precipChance="@{weather.current.precipChance}"
+                    app:layout_constraintEnd_toEndOf="@+id/detailHiLoTempText"
+                    app:layout_constraintTop_toBottomOf="@+id/detailHiLoTempText"
+                    tools:text="1%" />
 
-            <TextView
-                android:id="@+id/updateDateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/precipText"
-                tools:text="Updated 2022.06.17 01:12" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/currentTempText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:temperature="@{weather.current.currentTemp}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/cityStateText"
+                    app:layout_constraintTop_toBottomOf="@+id/cityStateText"
+                    tools:text="75°F" />
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/updateDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{Integer.toString(weather.updateTime)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/precipText"
+                    tools:text="Updated 2022.06.17 01:12" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
