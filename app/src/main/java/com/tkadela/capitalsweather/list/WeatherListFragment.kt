@@ -17,9 +17,12 @@ class WeatherListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        val application = requireNotNull(activity).application
+
         val binding = FragmentWeatherListBinding.inflate(inflater)
 
-        val viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
+        val viewModelFactory = WeatherListViewModelFactory(application)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(WeatherListViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
