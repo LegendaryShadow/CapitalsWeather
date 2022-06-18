@@ -13,6 +13,10 @@ class WeatherListViewModel : ViewModel() {
     val weatherData: LiveData<List<WeatherData>>
         get() = _weatherData
 
+    private val _navigateToForecastDetail = MutableLiveData<WeatherData>()
+    val navigateToForecastDetail: LiveData<WeatherData>
+        get() = _navigateToForecastDetail
+
     init {
         // TODO: Get data from API
         // DUMMY DATA FOLLOWS
@@ -35,5 +39,13 @@ class WeatherListViewModel : ViewModel() {
             listOf(bday1Forecast, bday2Forecast, bday3Forecast, bday4Forecast, bday5Forecast))
 
         _weatherData.value = listOf(aweather, bweather)
+    }
+
+    fun displayForecastDetails(weatherData: WeatherData) {
+        _navigateToForecastDetail.value = weatherData
+    }
+
+    fun displayForecastDetailsComplete() {
+        _navigateToForecastDetail.value = null
     }
 }

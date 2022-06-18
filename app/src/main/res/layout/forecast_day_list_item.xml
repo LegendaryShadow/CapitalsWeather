@@ -1,158 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="180dp"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#2196F3"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
+        <variable
+            name="forecastDay"
+            type="com.tkadela.capitalsweather.domain.DayForecast" />
+    </data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="180dp"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="#2196F3"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/detailHiLoTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/detailWeatherDesc"
-                tools:text="86°F" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/detailHiTempText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailHiLoTempText"
-                app:layout_constraintStart_toStartOf="@+id/detailHiLoTempText"
-                app:layout_constraintTop_toBottomOf="@+id/detailHiLoTempText"
-                tools:text="57°F" />
+                <TextView
+                    android:id="@+id/detailHiTempText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:textSize="24sp"
+                    app:temperature="@{forecastDay.hiTemp}"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                    app:layout_constraintStart_toStartOf="@+id/guideline4"
+                    app:layout_constraintTop_toBottomOf="@+id/detailWeatherDesc"
+                    tools:text="86°F" />
 
-            <TextView
-                android:id="@+id/precipLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/precip_label"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/precipText"
-                app:layout_constraintEnd_toEndOf="@+id/detailLoTempLabel"
-                app:layout_constraintStart_toStartOf="@+id/detailLoTempLabel" />
+                <TextView
+                    android:id="@+id/detailLoTempText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="24sp"
+                    app:temperature="@{forecastDay.loTemp}"
+                    app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
+                    app:layout_constraintStart_toStartOf="@+id/detailHiTempText"
+                    app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
+                    tools:text="57°F" />
 
-            <TextView
-                android:id="@+id/detailHiLoTempLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hi_label"
-                android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/detailHiLoTempText"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintStart_toStartOf="@+id/guideline3" />
+                <TextView
+                    android:id="@+id/precipLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/precip_label"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/precipText"
+                    app:layout_constraintEnd_toEndOf="@+id/detailLoTempLabel"
+                    app:layout_constraintStart_toStartOf="@+id/detailLoTempLabel" />
 
-            <TextView
-                android:id="@+id/detailLoTempLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lo_label"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText2"
-                app:layout_constraintEnd_toEndOf="@+id/detailHiLoTempLabel"
-                app:layout_constraintStart_toStartOf="@+id/detailHiLoTempLabel" />
+                <TextView
+                    android:id="@+id/detailHiTempLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hi_label"
+                    android:textSize="18sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
-            <TextView
-                android:id="@+id/precipText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailHiTempText2"
-                app:layout_constraintStart_toStartOf="@+id/detailHiTempText2"
-                app:layout_constraintTop_toBottomOf="@+id/detailHiTempText2"
-                tools:text="1%" />
+                <TextView
+                    android:id="@+id/detailLoTempLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lo_label"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/detailLoTempText"
+                    app:layout_constraintEnd_toEndOf="@+id/detailHiTempLabel"
+                    app:layout_constraintStart_toStartOf="@+id/detailHiTempLabel" />
 
-            <TextView
-                android:id="@+id/detailWeekdayText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Friday" />
+                <TextView
+                    android:id="@+id/precipText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="24sp"
+                    app:precipChance="@{forecastDay.precipChance}"
+                    app:layout_constraintEnd_toEndOf="@+id/detailLoTempText"
+                    app:layout_constraintStart_toStartOf="@+id/detailLoTempText"
+                    app:layout_constraintTop_toBottomOf="@+id/detailLoTempText"
+                    tools:text="1%" />
 
-            <TextView
-                android:id="@+id/detailDateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/detailWeekdayText"
-                app:layout_constraintTop_toBottomOf="@+id/detailWeekdayText"
-                tools:text="Jun 17" />
+                <TextView
+                    android:id="@+id/detailWeekdayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:dayOfWeek="@{forecastDay.forecastTime}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Friday" />
 
-            <ImageView
-                android:id="@+id/detailWeatherImage"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/detailDateText"
-                tools:src="@android:drawable/btn_star" />
+                <TextView
+                    android:id="@+id/detailDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="24sp"
+                    app:monthDay="@{forecastDay.forecastTime}"
+                    app:layout_constraintStart_toStartOf="@+id/detailWeekdayText"
+                    app:layout_constraintTop_toBottomOf="@+id/detailWeekdayText"
+                    tools:text="Jun 17" />
 
-            <TextView
-                android:id="@+id/detailWeatherDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailWeatherImage"
-                app:layout_constraintStart_toStartOf="@+id/detailWeatherImage"
-                app:layout_constraintTop_toBottomOf="@+id/detailWeatherImage"
-                tools:text="Clear" />
+                <ImageView
+                    android:id="@+id/detailWeatherImage"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_marginTop="16dp"
+                    app:weatherImage="@{forecastDay.weatherTypeIcon}"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/detailDateText"
+                    tools:src="@android:drawable/btn_star"
+                    tools:ignore="ContentDescription" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".5" />
+                <TextView
+                    android:id="@+id/detailWeatherDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="24sp"
+                    android:text="@{forecastDay.weatherType}"
+                    app:layout_constraintEnd_toEndOf="@+id/detailWeatherImage"
+                    app:layout_constraintStart_toStartOf="@+id/detailWeatherImage"
+                    app:layout_constraintTop_toBottomOf="@+id/detailWeatherImage"
+                    tools:text="Clear" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.25" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".5" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.75" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.25" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.75" />
 
-    </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

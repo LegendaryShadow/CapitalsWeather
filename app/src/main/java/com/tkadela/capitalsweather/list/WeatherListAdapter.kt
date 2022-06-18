@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tkadela.capitalsweather.databinding.WeatherListItemBinding
 import com.tkadela.capitalsweather.domain.WeatherData
 
-class WeatherListAdapter
+class WeatherListAdapter(private val onClickListener: WeatherClickListener)
     : ListAdapter<WeatherData, WeatherListAdapter.WeatherViewHolder>(WeatherListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
@@ -17,13 +17,14 @@ class WeatherListAdapter
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         val weatherData = getItem(position) as WeatherData
-        holder.bind(weatherData)
+        holder.bind(weatherData, onClickListener)
     }
 
     class WeatherViewHolder private constructor(val binding: WeatherListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: WeatherData) {
+        fun bind(item: WeatherData, clickListener: WeatherClickListener) {
             binding.weather = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -40,10 +41,15 @@ class WeatherListAdapter
 class WeatherListDiffCallback : DiffUtil.ItemCallback<WeatherData>() {
 
     override fun areItemsTheSame(oldItem: WeatherData, newItem: WeatherData): Boolean {
-        TODO("Not yet implemented")
+        return oldItem.locationLat == newItem.locationLat &&
+                oldItem.locationLon == newItem.locationLon
     }
 
     override fun areContentsTheSame(oldItem: WeatherData, newItem: WeatherData): Boolean {
-        TODO("Not yet implemented")
+        return oldItem == newItem
     }
+}
+
+class WeatherClickListener(val clickListener: (weatherData: WeatherData) -> Unit) {
+    fun onClick(weatherData: WeatherData) = clickListener(weatherData)
 }

@@ -7,6 +7,9 @@
         <variable
             name="weather"
             type="com.tkadela.capitalsweather.domain.WeatherData" />
+        <variable
+            name="clickListener"
+            type="com.tkadela.capitalsweather.list.WeatherClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +22,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:onClick="@{() -> clickListener.onClick(weather)}"
             app:cardBackgroundColor="#2196F3"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
@@ -32,7 +36,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/detailHiLoTempText"
+                    android:id="@+id/detailHiTempText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -81,14 +85,14 @@
                     tools:text="Feels Like 75°F" />
 
                 <TextView
-                    android:id="@+id/detailHiLoTempLabel"
+                    android:id="@+id/detailHiTempLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:text="@string/hi_lo_label"
                     android:textSize="16sp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/detailHiLoTempText"
-                    app:layout_constraintEnd_toStartOf="@+id/detailHiLoTempText" />
+                    app:layout_constraintBaseline_toBaselineOf="@+id/detailHiTempText"
+                    app:layout_constraintEnd_toStartOf="@+id/detailHiTempText" />
 
                 <TextView
                     android:id="@+id/precipText"
@@ -97,8 +101,8 @@
                     android:layout_marginTop="8dp"
                     android:textSize="18sp"
                     app:precipChance="@{weather.current.precipChance}"
-                    app:layout_constraintEnd_toEndOf="@+id/detailHiLoTempText"
-                    app:layout_constraintTop_toBottomOf="@+id/detailHiLoTempText"
+                    app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
+                    app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
                     tools:text="1%" />
 
                 <TextView
@@ -120,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="@{Integer.toString(weather.updateTime)}"
+                    app:dateTime="@{weather.updateTime}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/precipText"
                     tools:text="Updated 2022.06.17 01:12" />

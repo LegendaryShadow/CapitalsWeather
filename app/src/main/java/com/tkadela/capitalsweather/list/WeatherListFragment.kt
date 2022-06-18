@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.tkadela.capitalsweather.databinding.FragmentWeatherListBinding
 
 class WeatherListFragment : Fragment() {
@@ -22,8 +24,17 @@ class WeatherListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = WeatherListAdapter()
-        binding.weatherList.adapter = adapter
+        binding.weatherList.adapter = WeatherListAdapter(WeatherClickListener { weatherData ->
+            viewModel.displayForecastDetails(weatherData)
+        })
+
+        viewModel.navigateToForecastDetail.observe(viewLifecycleOwner, Observer { weatherData ->
+            if (weatherData != null) {
+                this.findNavController().navigate(
+                    WeatherListFragmentDirections.actionWeatherListFragmentToForecastDetailFragment(weatherData))
+                viewModel.displayForecastDetailsComplete()
+            }
+        })
 
         activity?.title = "Current Weather"
 

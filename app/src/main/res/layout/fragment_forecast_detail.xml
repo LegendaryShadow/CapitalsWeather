@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.tkadela.capitalsweather.detail.ForecastDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,14 +23,18 @@
             android:layout_marginTop="16dp"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:city="@{viewModel.selectedWeatherData.locationCity}"
+            app:state="@{viewModel.selectedWeatherData.locationState}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Orland Park, IL" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forecastList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
+            app:forecastListData="@{viewModel.selectedWeatherData.dailyForecast}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/detailUpdateDateText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +53,7 @@
             android:layout_marginBottom="16dp"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:dateTime="@{viewModel.selectedWeatherData.updateTime}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Updated 2022.06.17 01:12" />

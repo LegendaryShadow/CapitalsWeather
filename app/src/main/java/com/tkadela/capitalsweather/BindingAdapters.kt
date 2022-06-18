@@ -1,10 +1,18 @@
 package com.tkadela.capitalsweather
 
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.tkadela.capitalsweather.detail.ForecastListAdapter
+import com.tkadela.capitalsweather.domain.DayForecast
 import com.tkadela.capitalsweather.domain.WeatherData
 import com.tkadela.capitalsweather.list.WeatherListAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("city", "state")
 fun TextView.setCityState(city: String, state: String) {
@@ -31,10 +39,50 @@ fun TextView.setPrecipChance(precip: Int) {
     text = "${precip}%"
 }
 
-// TODO: DateTime string binding adapter
+@BindingAdapter("dateTime")
+fun TextView.setUpdateDateTime(timeStamp: Int) {
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
+    val dateTime = Date(timeStamp.toLong() * 1000)
 
-@BindingAdapter("listData")
-fun RecyclerView.bindNewList(data: List<WeatherData>) {
+    text = "Updated ${sdf.format(dateTime)}"
+}
+
+@BindingAdapter("dayOfWeek")
+fun TextView.setDayOfWeek(timeStamp: Int) {
+    val sdf = SimpleDateFormat("EEEE")
+    val dateTime = Date(timeStamp.toLong() * 1000)
+
+    text = sdf.format(dateTime)
+}
+
+@BindingAdapter("monthDay")
+fun TextView.setMonthDay(timeStamp: Int) {
+    val sdf = SimpleDateFormat("MMM dd")
+    val dateTime = Date(timeStamp.toLong() * 1000)
+
+    text = sdf.format(dateTime)
+}
+
+@BindingAdapter("weatherImage")
+fun ImageView.setWeatherImage(imgCode: String) {
+    val url = "http://openweathermap.org/img/wn/${imgCode}@2x.png"
+    val imgUri = url.toUri().buildUpon().scheme("https").build()
+
+    Glide.with(context)
+        .load(imgUri)
+        .apply(RequestOptions()
+            .error(R.drawable.ic_connection_error))
+        .into(this)
+}
+
+@BindingAdapter("weatherListData")
+fun RecyclerView.bindNewWeatherList(data: List<WeatherData>) {
     val adapter = this.adapter as WeatherListAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("forecastListData")
+fun RecyclerView.bindNewForecastList(data: List<DayForecast>) {
+    val adapter = this.adapter as ForecastListAdapter
     adapter.submitList(data)
 }

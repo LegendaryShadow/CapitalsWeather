@@ -18,5 +18,9 @@
         android:id="@+id/forecastDetailFragment"
         android:name="com.tkadela.capitalsweather.detail.ForecastDetailFragment"
         android:label="ForecastDetailFragment"
-        tools:layout="@layout/fragment_forecast_detail"/>
+        tools:layout="@layout/fragment_forecast_detail">
+        <argument
+            android:name="weatherData"
+            app:argType="com.tkadela.capitalsweather.domain.WeatherData" />
+    </fragment>
 </navigation>
