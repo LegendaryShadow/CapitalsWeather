@@ -11,12 +11,24 @@ import com.tkadela.capitalsweather.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * This class combines the database and the network data sources
+ *
+ * The database is updated from the network, and then the UI accesses the weather
+ * data from the database
+ */
 class WeatherRepository(private val database: WeatherDatabase) {
 
+    /**
+     * Access weather data from database as LiveData
+     */
     val weatherList: LiveData<List<WeatherData>> = Transformations.map(database.weatherDao.getAllWeather()) {
         it.asDomainModel()
     }
 
+    /**
+     * Update database from network
+     */
     suspend fun refreshWeatherData(locationList: List<LocationInfo>) {
         withContext(Dispatchers.IO) {
 

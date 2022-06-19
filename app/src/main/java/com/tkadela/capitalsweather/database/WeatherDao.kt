@@ -6,6 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+/**
+ * Class defining the possible queries on the weather database
+ */
 @Dao
 interface WeatherDao {
 

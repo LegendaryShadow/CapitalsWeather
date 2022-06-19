@@ -4,6 +4,11 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+/**
+ * ViewModelFactory for WeatherListViewModel
+ *
+ * Custom ViewModelFactory is required to pass parameters to the ViewModel
+ */
 class WeatherListViewModelFactory(private val app: Application)
     : ViewModelProvider.Factory {
 

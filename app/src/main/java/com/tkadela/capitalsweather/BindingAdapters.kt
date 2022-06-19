@@ -16,6 +16,10 @@ import com.tkadela.capitalsweather.list.WeatherListAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+/**********************************************************
+ * Binding adapters used to format TextViews with simple Strings
+ */
 @BindingAdapter("city", "state")
 fun TextView.setCityState(city: String, state: String) {
     text = "${city}, ${state}"
@@ -40,7 +44,12 @@ fun TextView.setFeelsLikeTempFahrenheit(temp: Int) {
 fun TextView.setPrecipChance(precip: Int) {
     text = "${precip}%"
 }
+/**************************************************************/
 
+
+/**************************************************************
+ * Binding adapters for converting Unix timestamps into various readable formats
+ */
 @BindingAdapter("dateTime")
 fun TextView.setUpdateDateTime(timeStamp: Int) {
     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
@@ -64,7 +73,11 @@ fun TextView.setMonthDay(timeStamp: Int) {
 
     text = sdf.format(dateTime)
 }
+/*****************************************************************/
 
+/**
+ * Binding adapter for reading in weather icons using Glide
+ */
 @BindingAdapter("weatherImage")
 fun ImageView.setWeatherImage(imgCode: String) {
     val url = "http://openweathermap.org/img/wn/${imgCode}@2x.png"
@@ -77,6 +90,9 @@ fun ImageView.setWeatherImage(imgCode: String) {
         .into(this)
 }
 
+/******************************************************************
+ * Binding adapters for updating the data in the RecyclerViews
+ */
 @BindingAdapter("weatherListData")
 fun RecyclerView.bindNewWeatherList(data: List<WeatherData>?) {
     if (data != null) {
@@ -85,19 +101,23 @@ fun RecyclerView.bindNewWeatherList(data: List<WeatherData>?) {
     }
 }
 
+@BindingAdapter("forecastListData")
+fun RecyclerView.bindNewForecastList(data: List<DayForecast>?) {
+    if (data != null) {
+        val adapter = this.adapter as ForecastListAdapter
+        adapter.submitList(data)
+    }
+}
+/*******************************************************************/
+
+/**
+ * Binding adapter for hiding the ProgressBar after loading of the data is complete (successful or not)
+ */
 @BindingAdapter("isNetworkError", "weatherList")
 fun ProgressBar.hideIfNetworkError(isNetworkError: Boolean, weatherList: List<WeatherData>?) {
     visibility = if (weatherList == null || weatherList.isEmpty()) View.VISIBLE else View.GONE
 
     if (isNetworkError) {
         visibility = View.GONE
-    }
-}
-
-@BindingAdapter("forecastListData")
-fun RecyclerView.bindNewForecastList(data: List<DayForecast>?) {
-    if (data != null) {
-        val adapter = this.adapter as ForecastListAdapter
-        adapter.submitList(data)
     }
 }

@@ -7,6 +7,10 @@ import com.tkadela.capitalsweather.domain.DayForecast
 import com.tkadela.capitalsweather.domain.WeatherData
 import java.util.*
 
+/**
+ * This file contains the objects used to parse the response from the API
+ */
+
 
 data class NetworkWeatherType(
     @Json(name = "main") val type: String,
@@ -43,7 +47,11 @@ data class NetworkWeatherData(
     val daily: List<NetworkDayForecast>
 )
 
-
+/**
+ * Convert the network weather data to the domain model
+ *
+ * Requires city and state as parameters as they are not provided by the API response
+ */
 fun NetworkWeatherData.asDomainModel(city: String, state: String): WeatherData {
     // Get current time zone offset
     val calendar = Calendar.getInstance(Locale.getDefault())
@@ -79,6 +87,11 @@ fun NetworkWeatherData.asDomainModel(city: String, state: String): WeatherData {
     )
 }
 
+/**
+ * Convert the network weather data to the database model
+ *
+ * Requires city and state as parameters as they are not provided by the API response
+ */
 fun NetworkWeatherData.asDatabaseModel(city: String, state: String): DatabaseWeatherData {
     // Get current time zone offset
     val calendar = Calendar.getInstance(Locale.getDefault())

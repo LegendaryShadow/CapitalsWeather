@@ -7,6 +7,11 @@ import com.tkadela.capitalsweather.domain.WeatherData
 
 class ForecastDetailViewModel(weatherData: WeatherData) : ViewModel() {
 
+    /**
+     * Variable containing the weather data for this Fragment
+     *
+     * Contains the forecasts to be used in the RecyclerView
+     */
     private val _selectedWeatherData = MutableLiveData<WeatherData>()
     val selectedWeatherData: LiveData<WeatherData>
         get() = _selectedWeatherData

@@ -4,6 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tkadela.capitalsweather.domain.WeatherData
 
+/**
+ * ViewModelFactory for ForecastDetailViewModel
+ *
+ * Custom ViewModelFactory is required to pass parameters to the ViewModel
+ */
 class ForecastDetailViewModelFactory(private val weatherData: WeatherData)
             : ViewModelProvider.Factory {
 

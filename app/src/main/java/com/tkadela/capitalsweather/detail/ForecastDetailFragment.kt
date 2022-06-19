@@ -17,13 +17,16 @@ class ForecastDetailFragment : Fragment() {
 
         val binding = FragmentForecastDetailBinding.inflate(inflater)
 
+        // Get parameter from navigation
         val weatherData = ForecastDetailFragmentArgs.fromBundle(requireArguments()).weatherData
 
+        // Initialize ViewModel from factory
         val viewModelFactory = ForecastDetailViewModelFactory(weatherData)
-
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(ForecastDetailViewModel::class.java)
+
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // Initialize adapter for RecyclerView
         binding.forecastList.adapter = ForecastListAdapter()
 
         activity?.title = "5-Day Forecast"

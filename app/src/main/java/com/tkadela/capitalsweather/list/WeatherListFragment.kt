@@ -13,6 +13,9 @@ import com.tkadela.capitalsweather.databinding.FragmentWeatherListBinding
 
 class WeatherListFragment : Fragment() {
 
+    /**
+     * Initialize ViewModel from factory
+     */
     private val viewModel: WeatherListViewModel by lazy {
         val application = requireNotNull(activity).application
         val viewModelFactory = WeatherListViewModelFactory(application)
@@ -30,10 +33,14 @@ class WeatherListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        // Initialize adapter for RecyclerView
         binding.weatherList.adapter = WeatherListAdapter(WeatherClickListener { weatherData ->
             viewModel.displayForecastDetails(weatherData)
         })
 
+        /**
+         * Set observer for [ForecastDetailFragment] navigation LiveData
+         */
         viewModel.navigateToForecastDetail.observe(viewLifecycleOwner, Observer { weatherData ->
             if (weatherData != null) {
                 this.findNavController().navigate(
@@ -42,12 +49,16 @@ class WeatherListFragment : Fragment() {
             }
         })
 
+        /**
+         * Set observer for network error LiveData
+         */
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer { isNetworkError ->
             if (isNetworkError) {
                 onNetworkError()
             }
         })
 
+        // Set listener for SwipeRefreshLayout
         binding.swiper.setOnRefreshListener {
             viewModel.swipeRefresh(binding.swiper)
         }
@@ -57,6 +68,9 @@ class WeatherListFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Show Toast for network error
+     */
     private fun onNetworkError() {
         if (!viewModel.isNetworkErrorShown.value!!) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()

@@ -21,26 +21,53 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.StringBuilder
 
+/**
+ * ViewModel for the WeatherListFragment
+ */
 class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
 
+    // Get the singleton object of the weather repository
     private val weatherRepository = WeatherRepository(WeatherDatabase.getInstance(app))
 
+    /**
+     * List of weather data from database (LiveData)
+     * This will be the data for the RecyclerView in this Fragment
+     */
     val weatherData = weatherRepository.weatherList
 
+
+    /**
+     * Variable that tells the Fragment to navigate to a specific [ForecastDetailFragment]
+     *
+     * Mutable version is private to prevent modification outside the ViewModel
+     */
     private val _navigateToForecastDetail = MutableLiveData<WeatherData>()
     val navigateToForecastDetail: LiveData<WeatherData>
         get() = _navigateToForecastDetail
 
+    /**
+     * Variable that triggers the Fragment to display a Toast for a network error
+     */
     private val _eventNetworkError = MutableLiveData<Boolean>(false)
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
+    /**
+     * Flag that marks whether the network error Toast has been shown by the Fragment
+     */
     private val _isNetworkErrorShown = MutableLiveData<Boolean>(false)
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
+    /**
+     * List of location data used to make calls to the weather API
+     */
     private var locationList = listOf<LocationInfo>()
 
+    /**
+     * Initialize ViewModel by reading the location info from the raw JSON file
+     * and then updating the weather database with API calls
+     */
     init {
         getLocationInfo(app)
 
@@ -49,6 +76,9 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * Read location data from raw resource
+     */
     private fun getLocationInfo(app: Application) {
         val inputStream =
             app.applicationContext.resources.openRawResource(R.raw.state_capital_locations)
@@ -71,6 +101,9 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
         locationList = adapter.fromJson(sb.toString())!!
     }
 
+    /**
+     * Get weather data from database and execute API calls to update database
+     */
     private suspend fun getWeatherDataFromRepository() {
         try {
             weatherRepository.refreshWeatherData(locationList)
@@ -84,6 +117,9 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
 
     }
 
+    /**
+     * Update weather data from API on swipe-down
+     */
     fun swipeRefresh(swiper: SwipeRefreshLayout) {
         viewModelScope.launch {
             getWeatherDataFromRepository()
@@ -92,14 +128,23 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * Initiate navigation to [ForecastDetailFragment] for given location
+     */
     fun displayForecastDetails(weatherData: WeatherData) {
         _navigateToForecastDetail.value = weatherData
     }
 
+    /**
+     * Reset LiveData for navigation
+     */
     fun displayForecastDetailsComplete() {
         _navigateToForecastDetail.value = null
     }
 
+    /**
+     * Reset LiveData for showing network error
+     */
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
     }

@@ -5,6 +5,10 @@ import com.tkadela.capitalsweather.domain.CurrentWeather
 import com.tkadela.capitalsweather.domain.DayForecast
 import com.tkadela.capitalsweather.domain.WeatherData
 
+/**
+ * This class defines the database schema for the weather data table.
+ * It is defined as one large table for simplicity of access.
+ */
 @Entity(tableName = "weather_data_table", primaryKeys = ["lat", "lon"])
 data class DatabaseWeatherData(
     val lat: Double,
@@ -55,6 +59,9 @@ data class DatabaseWeatherData(
     val day5PrecipChance: Int
 )
 
+/**
+ * Convert the database weather data to the domain model
+ */
 fun List<DatabaseWeatherData>.asDomainModel(): List<WeatherData> {
     return map {
         val current = CurrentWeather(it.currentTemp, it.currentFeelsLike, it.currentHiTemp, it.currentLoTemp, it.currentPrecipChance)
