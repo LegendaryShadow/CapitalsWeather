@@ -1,6 +1,8 @@
 package com.tkadela.capitalsweather
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -76,13 +78,26 @@ fun ImageView.setWeatherImage(imgCode: String) {
 }
 
 @BindingAdapter("weatherListData")
-fun RecyclerView.bindNewWeatherList(data: List<WeatherData>) {
-    val adapter = this.adapter as WeatherListAdapter
-    adapter.submitList(data)
+fun RecyclerView.bindNewWeatherList(data: List<WeatherData>?) {
+    if (data != null) {
+        val adapter = this.adapter as WeatherListAdapter
+        adapter.submitList(data)
+    }
+}
+
+@BindingAdapter("isNetworkError", "weatherList")
+fun ProgressBar.hideIfNetworkError(isNetworkError: Boolean, weatherList: List<WeatherData>?) {
+    visibility = if (weatherList == null || weatherList.isEmpty()) View.VISIBLE else View.GONE
+
+    if (isNetworkError) {
+        visibility = View.GONE
+    }
 }
 
 @BindingAdapter("forecastListData")
-fun RecyclerView.bindNewForecastList(data: List<DayForecast>) {
-    val adapter = this.adapter as ForecastListAdapter
-    adapter.submitList(data)
+fun RecyclerView.bindNewForecastList(data: List<DayForecast>?) {
+    if (data != null) {
+        val adapter = this.adapter as ForecastListAdapter
+        adapter.submitList(data)
+    }
 }

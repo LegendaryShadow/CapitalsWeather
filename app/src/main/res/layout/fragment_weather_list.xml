@@ -32,5 +32,16 @@
             tools:itemCount="6"
             tools:listitem="@layout/weather_list_item" />
 
+        <ProgressBar
+            android:id="@+id/loading_spinner"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:isNetworkError="@{safeUnbox(viewModel.eventNetworkError)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:weatherList="@{viewModel.weatherData}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
