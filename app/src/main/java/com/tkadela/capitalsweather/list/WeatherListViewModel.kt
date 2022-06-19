@@ -10,12 +10,10 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tkadela.capitalsweather.R
-import com.tkadela.capitalsweather.domain.CurrentWeather
-import com.tkadela.capitalsweather.domain.DayForecast
+import com.tkadela.capitalsweather.database.WeatherDatabase
 import com.tkadela.capitalsweather.domain.LocationInfo
 import com.tkadela.capitalsweather.domain.WeatherData
-import com.tkadela.capitalsweather.network.WeatherApi
-import com.tkadela.capitalsweather.network.asDomainModel
+import com.tkadela.capitalsweather.repository.WeatherRepository
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.IOException
@@ -24,9 +22,13 @@ import java.lang.StringBuilder
 
 class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val _weatherData = MutableLiveData<List<WeatherData>>()
-    val weatherData: LiveData<List<WeatherData>>
-        get() = _weatherData
+    private val weatherRepository = WeatherRepository(WeatherDatabase.getInstance(app))
+
+    val weatherData = weatherRepository.weatherList
+
+//    private val _weatherData = MutableLiveData<List<WeatherData>>()
+//    val weatherData: LiveData<List<WeatherData>>
+//        get() = _weatherData
 
     private val _navigateToForecastDetail = MutableLiveData<WeatherData>()
     val navigateToForecastDetail: LiveData<WeatherData>
@@ -40,12 +42,12 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
-    private var defaultLocationList = listOf<LocationInfo>()
+    private var locationList = listOf<LocationInfo>()
 
     init {
         getLocationInfo(app)
 
-        getWeatherDataFromNetwork()
+        getWeatherDataFromRepository()
     }
 
     private fun getLocationInfo(app: Application) {
@@ -67,29 +69,44 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
         val listType = Types.newParameterizedType(List::class.java, LocationInfo::class.java)
         val adapter: JsonAdapter<List<LocationInfo>> = moshi.adapter(listType)
 
-        defaultLocationList = adapter.fromJson(sb.toString())!!
+        locationList = adapter.fromJson(sb.toString())!!
     }
 
-    private fun getWeatherDataFromNetwork() {
+//    private fun getWeatherDataFromNetwork() {
+//        viewModelScope.launch {
+//            try {
+//                val weatherList = defaultLocationList.map() { locationInfo ->
+//
+//                    val networkWeather =
+//                        WeatherApi.retrofitService.getWeatherData(
+//                            locationInfo.lat,
+//                            locationInfo.lon
+//                        )
+//
+//                    networkWeather.asDomainModel(locationInfo.city, locationInfo.state)
+//                }
+//                _weatherData.postValue(weatherList)
+//
+//                _eventNetworkError.value = false
+//                _isNetworkErrorShown.value = false
+//
+//            } catch (networkError: IOException) {
+//                _eventNetworkError.value = true
+//            }
+//        }
+//    }
+
+    private fun getWeatherDataFromRepository() {
         viewModelScope.launch {
             try {
-                val weatherList = defaultLocationList.map() { locationInfo ->
-
-                    val networkWeather =
-                        WeatherApi.retrofitService.getWeatherData(
-                            locationInfo.lat,
-                            locationInfo.lon
-                        )
-
-                    networkWeather.asDomainModel(locationInfo.city, locationInfo.state)
-                }
-                _weatherData.postValue(weatherList)
-
+                weatherRepository.refreshWeatherData(locationList)
                 _eventNetworkError.value = false
                 _isNetworkErrorShown.value = false
 
             } catch (networkError: IOException) {
-                _eventNetworkError.value = true
+                if (weatherData.value.isNullOrEmpty()) {
+                    _eventNetworkError.value = true
+                }
             }
         }
     }
