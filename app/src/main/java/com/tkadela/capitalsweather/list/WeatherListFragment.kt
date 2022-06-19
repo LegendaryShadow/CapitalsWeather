@@ -25,12 +25,7 @@ class WeatherListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        //val application = requireNotNull(activity).application
-
         val binding = FragmentWeatherListBinding.inflate(inflater)
-
-        //val viewModelFactory = WeatherListViewModelFactory(application)
-        //val viewModel = ViewModelProvider(this, viewModelFactory).get(WeatherListViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -52,6 +47,10 @@ class WeatherListFragment : Fragment() {
                 onNetworkError()
             }
         })
+
+        binding.swiper.setOnRefreshListener {
+            viewModel.swipeRefresh(binding.swiper)
+        }
 
         activity?.title = "Current Weather"
 

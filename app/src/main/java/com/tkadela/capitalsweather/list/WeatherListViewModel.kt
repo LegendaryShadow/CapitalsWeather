@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -26,10 +27,6 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
 
     val weatherData = weatherRepository.weatherList
 
-//    private val _weatherData = MutableLiveData<List<WeatherData>>()
-//    val weatherData: LiveData<List<WeatherData>>
-//        get() = _weatherData
-
     private val _navigateToForecastDetail = MutableLiveData<WeatherData>()
     val navigateToForecastDetail: LiveData<WeatherData>
         get() = _navigateToForecastDetail
@@ -47,7 +44,9 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
     init {
         getLocationInfo(app)
 
-        getWeatherDataFromRepository()
+        viewModelScope.launch {
+            getWeatherDataFromRepository()
+        }
     }
 
     private fun getLocationInfo(app: Application) {
@@ -72,42 +71,24 @@ class WeatherListViewModel(app: Application) : AndroidViewModel(app) {
         locationList = adapter.fromJson(sb.toString())!!
     }
 
-//    private fun getWeatherDataFromNetwork() {
-//        viewModelScope.launch {
-//            try {
-//                val weatherList = defaultLocationList.map() { locationInfo ->
-//
-//                    val networkWeather =
-//                        WeatherApi.retrofitService.getWeatherData(
-//                            locationInfo.lat,
-//                            locationInfo.lon
-//                        )
-//
-//                    networkWeather.asDomainModel(locationInfo.city, locationInfo.state)
-//                }
-//                _weatherData.postValue(weatherList)
-//
-//                _eventNetworkError.value = false
-//                _isNetworkErrorShown.value = false
-//
-//            } catch (networkError: IOException) {
-//                _eventNetworkError.value = true
-//            }
-//        }
-//    }
-
-    private fun getWeatherDataFromRepository() {
-        viewModelScope.launch {
-            try {
-                weatherRepository.refreshWeatherData(locationList)
-                _eventNetworkError.value = false
-                _isNetworkErrorShown.value = false
-
-            } catch (networkError: IOException) {
-                if (weatherData.value.isNullOrEmpty()) {
-                    _eventNetworkError.value = true
-                }
+    private suspend fun getWeatherDataFromRepository() {
+        try {
+            weatherRepository.refreshWeatherData(locationList)
+            _eventNetworkError.value = false
+            _isNetworkErrorShown.value = false
+        } catch (networkError: IOException) {
+            if (weatherData.value.isNullOrEmpty()) {
+                _eventNetworkError.value = true
             }
+        }
+
+    }
+
+    fun swipeRefresh(swiper: SwipeRefreshLayout) {
+        viewModelScope.launch {
+            getWeatherDataFromRepository()
+
+            swiper.isRefreshing = false
         }
     }
 
