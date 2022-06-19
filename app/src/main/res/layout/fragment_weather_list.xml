@@ -29,7 +29,7 @@
                 android:id="@+id/weatherList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#3F51B5"
+                android:background="#2175F3"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

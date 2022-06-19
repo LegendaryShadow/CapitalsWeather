@@ -20,7 +20,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="#2196F3"
+            app:cardBackgroundColor="#21C9F3"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,10 +38,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:textSize="24sp"
-                    app:temperature="@{forecastDay.hiTemp}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toBottomOf="@+id/detailWeatherDesc"
+                    app:temperature="@{forecastDay.hiTemp}"
                     tools:text="86°F" />
 
                 <TextView
@@ -50,10 +50,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:textSize="24sp"
-                    app:temperature="@{forecastDay.loTemp}"
                     app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
                     app:layout_constraintStart_toStartOf="@+id/detailHiTempText"
                     app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
+                    app:temperature="@{forecastDay.loTemp}"
                     tools:text="57°F" />
 
                 <TextView
@@ -92,10 +92,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:textSize="24sp"
-                    app:precipChance="@{forecastDay.precipChance}"
                     app:layout_constraintEnd_toEndOf="@+id/detailLoTempText"
                     app:layout_constraintStart_toStartOf="@+id/detailLoTempText"
                     app:layout_constraintTop_toBottomOf="@+id/detailLoTempText"
+                    app:precipChance="@{forecastDay.precipChance}"
                     tools:text="1%" />
 
                 <TextView
@@ -117,9 +117,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="24sp"
-                    app:monthDay="@{forecastDay.forecastTime}"
                     app:layout_constraintStart_toStartOf="@+id/detailWeekdayText"
                     app:layout_constraintTop_toBottomOf="@+id/detailWeekdayText"
+                    app:monthDay="@{forecastDay.forecastTime}"
                     tools:text="Jun 17" />
 
                 <ImageView
@@ -127,20 +127,20 @@
                     android:layout_width="125dp"
                     android:layout_height="125dp"
                     android:layout_marginTop="16dp"
-                    app:weatherImage="@{forecastDay.weatherTypeIcon}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline2"
                     app:layout_constraintTop_toBottomOf="@+id/detailDateText"
-                    tools:src="@android:drawable/btn_star"
-                    tools:ignore="ContentDescription" />
+                    app:weatherImage="@{forecastDay.weatherTypeIcon}"
+                    tools:ignore="ContentDescription"
+                    tools:src="@android:drawable/btn_star" />
 
                 <TextView
                     android:id="@+id/detailWeatherDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textSize="24sp"
                     android:text="@{forecastDay.weatherType}"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@+id/detailWeatherImage"
                     app:layout_constraintStart_toStartOf="@+id/detailWeatherImage"
                     app:layout_constraintTop_toBottomOf="@+id/detailWeatherImage"
