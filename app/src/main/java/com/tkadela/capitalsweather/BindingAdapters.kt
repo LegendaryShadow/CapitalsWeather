@@ -103,7 +103,10 @@ fun ImageView.setWeatherImage(imgCode: String) {
 fun RecyclerView.bindNewWeatherList(data: List<WeatherData>?) {
     if (data != null) {
         val adapter = this.adapter as WeatherListAdapter
-        adapter.submitList(data)
+        adapter.submitList(data) {
+            // Scroll to top after DiffUtil calculates changes
+            scrollToPosition(0)
+        }
     }
 }
 
@@ -126,4 +129,12 @@ fun ProgressBar.hideIfNetworkError(isNetworkError: Boolean, weatherList: List<We
     if (isNetworkError) {
         visibility = View.GONE
     }
+}
+
+/**
+ * Binding adapter to show ProgressBar while searched location is loading
+ */
+@BindingAdapter("isLoaded")
+fun ProgressBar.showUntilLoaded(isLoaded: Boolean) {
+    visibility = if (isLoaded) View.GONE else View.VISIBLE
 }

@@ -20,4 +20,10 @@ interface WeatherDao {
 
     @Query("SELECT * FROM weather_data_table WHERE lat = :lat AND lon = :lon")
     fun getWeather(lat: Double, lon: Double): LiveData<DatabaseWeatherData>
+
+    @Query("UPDATE weather_data_table SET display_order = display_order + 1")
+    fun prepForInsert()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(location: DatabaseWeatherData)
 }

@@ -15,8 +15,12 @@ import com.tkadela.capitalsweather.database.LocationDatabase
 import com.tkadela.capitalsweather.database.WeatherDatabase
 import com.tkadela.capitalsweather.domain.LocationInfo
 import com.tkadela.capitalsweather.domain.WeatherData
+import com.tkadela.capitalsweather.network.GeocodingApi
+import com.tkadela.capitalsweather.network.NetworkLocationInfo
 import com.tkadela.capitalsweather.repository.WeatherRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -74,6 +78,20 @@ class WeatherListViewModel(app: Application, isLocationInitialized: Boolean) : A
         get() = _isWeatherDataInitialized
 
     /**
+     * Variable that tells the Fragment to show an AlertDialog to select the correct location
+     */
+    private val _locationsToSelectFrom = MutableLiveData<List<NetworkLocationInfo>>()
+    val locationsToSelectFrom: LiveData<List<NetworkLocationInfo>>
+        get() = _locationsToSelectFrom
+
+    /**
+     * Variable that tells the Fragment to show an AlertDialog to select the correct location
+     */
+    private val _isNewLocationLoaded = MutableLiveData(true)
+    val isNewLocationLoaded: LiveData<Boolean>
+        get() = _isNewLocationLoaded
+
+    /**
      * Initialize ViewModel by reading the location info from the raw JSON file
      * and then updating the weather database with API calls
      */
@@ -85,31 +103,9 @@ class WeatherListViewModel(app: Application, isLocationInitialized: Boolean) : A
         }
     }
 
-//    /**
-//     * Read location data from raw resource
-//     */
-//    private fun getLocationInfo(app: Application) {
-//        val inputStream =
-//            app.applicationContext.resources.openRawResource(R.raw.state_capital_locations)
-//        val reader = BufferedReader(InputStreamReader(inputStream))
-//
-//        val sb = StringBuilder()
-//        var line = reader.readLine()
-//
-//        while (line != null) {
-//            sb.append(line)
-//            line = reader.readLine()
-//        }
-//        reader.close()
-//        inputStream.close()
-//
-//        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-//        val listType = Types.newParameterizedType(List::class.java, LocationInfo::class.java)
-//        val adapter: JsonAdapter<List<LocationInfo>> = moshi.adapter(listType)
-//
-//        tempLocationList = adapter.fromJson(sb.toString())!!
-//    }
-
+    /**
+     * Initialize weather data after location data is read from database
+     */
     fun initializeWeatherData() {
         viewModelScope.launch {
             getWeatherDataFromRepository()
@@ -165,5 +161,46 @@ class WeatherListViewModel(app: Application, isLocationInitialized: Boolean) : A
      */
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
+    }
+
+    /**
+     * Make Geocoding API call to search for a new location for weather data
+     */
+    fun getLocationsFromSearch(searchText: String) {
+        viewModelScope.launch {
+            val networkLocContainer = GeocodingApi.retrofitService.getLocationInfo(searchText)
+            val networkLocList = networkLocContainer.results
+
+            if (networkLocList.size == 1) {
+                // Add directly if only one result
+                weatherRepository.addNewLocationAndWeather(networkLocList[0])
+            }
+            else {
+                // Show selection dialog if multiple results
+                _locationsToSelectFrom.value = networkLocList
+            }
+        }
+    }
+
+    /**
+     * Adds selected location from selection dialog to database
+     */
+    fun addSelectedLocation(networkLocationInfo: NetworkLocationInfo) {
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                _isNewLocationLoaded.value = false  // Controls for ProgressBar visibility
+            }
+
+            weatherRepository.addNewLocationAndWeather(networkLocationInfo)
+
+            withContext(Dispatchers.Main) {
+                _isNewLocationLoaded.value = true  // Controls for ProgressBar visibility
+            }
+        }
+    }
+
+    // Reset LiveData for location select dialog
+    fun locationsDialogComplete() {
+        _locationsToSelectFrom.value = null
     }
 }

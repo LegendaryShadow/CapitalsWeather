@@ -18,4 +18,10 @@ interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(locationList: List<DatabaseLocationInfo>)
 
+    @Query("UPDATE location_data_table SET display_order = display_order + 1")
+    fun prepForInsert()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(location: DatabaseLocationInfo)
+
 }

@@ -6,4 +6,5 @@
     <string name="hi_label">Hi</string>
     <string name="lo_label">Lo</string>
     <string name="precip_label">Precip.</string>
+    <string name="search_for_new_location">Search for new location</string>
 </resources>

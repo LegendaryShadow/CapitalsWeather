@@ -14,6 +14,7 @@ import com.tkadela.capitalsweather.database.asDomainModel
 import com.tkadela.capitalsweather.domain.LocationInfo
 import com.tkadela.capitalsweather.domain.WeatherData
 import com.tkadela.capitalsweather.domain.asDatabaseModel
+import com.tkadela.capitalsweather.network.NetworkLocationInfo
 import com.tkadela.capitalsweather.network.WeatherApi
 import com.tkadela.capitalsweather.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
@@ -74,11 +75,22 @@ class WeatherRepository(
         }
     }
 
-    /**
-     * Get one location's weather data
-     */
-    fun getWeatherData(lat: Double, lon: Double) = Transformations.map(weatherDatabase.weatherDao.getWeather(lat, lon)) {
-        it.asDomainModel()
+    suspend fun addNewLocationAndWeather(networkLocationInfo: NetworkLocationInfo) {
+        withContext(Dispatchers.IO) {
+            locationDatabase.locationDao.prepForInsert()
+
+            val dbLocation = networkLocationInfo.asDatabaseModel()
+            locationDatabase.locationDao.insert(dbLocation)
+
+            val networkWeather =
+                WeatherApi.retrofitService.getWeatherData(
+                    networkLocationInfo.lat,
+                    networkLocationInfo.lon
+                )
+
+            weatherDatabase.weatherDao.prepForInsert()
+            weatherDatabase.weatherDao.insert(networkWeather.asDatabaseModel(dbLocation.order, dbLocation.city, dbLocation.state, dbLocation.country))
+        }
     }
 
     /**
