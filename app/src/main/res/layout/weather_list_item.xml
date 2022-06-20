@@ -39,12 +39,12 @@
                     android:id="@+id/detailHiTempText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
                     android:textSize="18sp"
                     app:hiTemp="@{weather.dailyForecast[0].hiTemp}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/precipText"
                     app:loTemp="@{weather.dailyForecast[0].loTemp}"
                     tools:text="86°F / 57°F" />
 
@@ -54,13 +54,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     app:city="@{weather.locationCity}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:state="@{weather.locationState}"
-                    tools:text="Orland Park, IL" />
+                    app:country="@{weather.locationCountry}"
+                    tools:text="Jefferson City, MO, US" />
 
                 <TextView
                     android:id="@+id/precipLabel"
@@ -77,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:textSize="16sp"
                     android:textStyle="italic"
                     app:feelTemp="@{weather.current.feelsLike}"
@@ -98,10 +100,10 @@
                     android:id="@+id/precipText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="@+id/detailHiTempText"
-                    app:layout_constraintTop_toBottomOf="@+id/detailHiTempText"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:precipChance="@{weather.current.precipChance}"
                     tools:text="1%" />
 

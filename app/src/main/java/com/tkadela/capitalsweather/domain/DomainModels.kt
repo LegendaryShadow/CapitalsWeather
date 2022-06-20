@@ -42,6 +42,7 @@ data class WeatherData(val locationLat: Double,
                        val locationLon: Double,
                        val locationCity: String,
                        val locationState: String,
+                       val locationCountry: String,
                        val updateTime: Int,     // time as Unix timestamp (in user time zone)
                        val current: CurrentWeather,
                        val dailyForecast: List<DayForecast>) : Parcelable

@@ -48,60 +48,22 @@ data class NetworkWeatherData(
 )
 
 /**
- * Convert the network weather data to the domain model
- *
- * Requires city and state as parameters as they are not provided by the API response
- */
-fun NetworkWeatherData.asDomainModel(city: String, state: String): WeatherData {
-    // Get current time zone offset
-    val calendar = Calendar.getInstance(Locale.getDefault())
-    val tzOffset = -(calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET)) / (60 * 1000)
-
-    val currentWeather = CurrentWeather(
-        current.temp.toInt(),
-        current.feelsLike.toInt(),
-        daily[0].temp.hi.toInt(),
-        daily[0].temp.lo.toInt(),
-        (daily[0].precipChance * 100).toInt()
-    )
-
-    val dailyForecast = daily.map {
-        DayForecast(
-            it.forecastTime + locationTzOffset,
-            it.weather[0].type,
-            it.weather[0].icon,
-            it.temp.hi.toInt(),
-            it.temp.lo.toInt(),
-            (it.precipChance * 100).toInt()
-        )
-    } .subList(0,5)
-
-    return WeatherData(
-        lat,
-        lon,
-        city,
-        state,
-        current.updateTime + tzOffset,
-        currentWeather,
-        dailyForecast
-    )
-}
-
-/**
  * Convert the network weather data to the database model
  *
  * Requires city and state as parameters as they are not provided by the API response
  */
-fun NetworkWeatherData.asDatabaseModel(city: String, state: String): DatabaseWeatherData {
+fun NetworkWeatherData.asDatabaseModel(order: Int, city: String, state: String, country: String): DatabaseWeatherData {
     // Get current time zone offset
     val calendar = Calendar.getInstance(Locale.getDefault())
     val tzOffset = -(calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET)) / (60 * 1000)
 
     return DatabaseWeatherData(
+        order,
         lat,
         lon,
         city,
         state,
+        country,
         current.updateTime + tzOffset,
 
         current.temp.toInt(),

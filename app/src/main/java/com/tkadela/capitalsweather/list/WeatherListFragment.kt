@@ -1,5 +1,7 @@
 package com.tkadela.capitalsweather.list
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,12 +15,14 @@ import com.tkadela.capitalsweather.databinding.FragmentWeatherListBinding
 
 class WeatherListFragment : Fragment() {
 
+    private var isLocationInitialized = false
+
     /**
      * Initialize ViewModel from factory
      */
     private val viewModel: WeatherListViewModel by lazy {
         val application = requireNotNull(activity).application
-        val viewModelFactory = WeatherListViewModelFactory(application)
+        val viewModelFactory = WeatherListViewModelFactory(application, isLocationInitialized)
 
         ViewModelProvider(this, viewModelFactory).get(WeatherListViewModel::class.java)
     }
@@ -29,6 +33,9 @@ class WeatherListFragment : Fragment() {
     ): View {
 
         val binding = FragmentWeatherListBinding.inflate(inflater)
+
+        val prefs = requireNotNull(activity).getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        isLocationInitialized = prefs.getBoolean("loc_initialized", false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -55,6 +62,17 @@ class WeatherListFragment : Fragment() {
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer { isNetworkError ->
             if (isNetworkError) {
                 onNetworkError()
+            }
+        })
+
+        viewModel.locationList.observe(viewLifecycleOwner, Observer {
+            if (viewModel.isWeatherDataInitialized.value == false && it.isNotEmpty()) {
+                viewModel.initializeWeatherData()
+
+                with(prefs.edit()) {
+                    putBoolean("loc_initialized", true)
+                    apply()
+                }
             }
         })
 

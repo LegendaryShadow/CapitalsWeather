@@ -1,8 +1,10 @@
 package com.tkadela.capitalsweather.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import com.tkadela.capitalsweather.domain.CurrentWeather
 import com.tkadela.capitalsweather.domain.DayForecast
+import com.tkadela.capitalsweather.domain.LocationInfo
 import com.tkadela.capitalsweather.domain.WeatherData
 
 /**
@@ -11,10 +13,12 @@ import com.tkadela.capitalsweather.domain.WeatherData
  */
 @Entity(tableName = "weather_data_table", primaryKeys = ["lat", "lon"])
 data class DatabaseWeatherData(
+    @ColumnInfo(name = "display_order") val order: Int,
     val lat: Double,
     val lon: Double,
     val city: String,
     val state: String,
+    val country: String,
     val updateTime: Int,
 
     val currentTemp: Int,
@@ -73,7 +77,24 @@ fun List<DatabaseWeatherData>.asDomainModel(): List<WeatherData> {
         val day5Forecast = DayForecast(it.day5ForecastTime, it.day5WeatherType, it.day5WeatherTypeIcon, it.day5HiTemp, it.day5LoTemp, it.day5PrecipChance)
         val dailyForecast = listOf(day1Forecast, day2Forecast, day3Forecast, day4Forecast, day5Forecast)
 
-        WeatherData(it.lat, it.lon, it.city, it.state, it.updateTime, current, dailyForecast)
+        WeatherData(it.lat, it.lon, it.city, it.state, it.country, it.updateTime, current, dailyForecast)
     }
+}
+
+/**
+ * Convert the database weather data to the domain model
+ */
+fun DatabaseWeatherData.asDomainModel(): WeatherData {
+
+    val current = CurrentWeather(currentTemp, currentFeelsLike, currentHiTemp, currentLoTemp, currentPrecipChance)
+
+    val day1Forecast = DayForecast(day1ForecastTime, day1WeatherType, day1WeatherTypeIcon, day1HiTemp,  day1LoTemp, day1PrecipChance)
+    val day2Forecast = DayForecast(day2ForecastTime, day2WeatherType, day2WeatherTypeIcon, day2HiTemp,  day2LoTemp, day2PrecipChance)
+    val day3Forecast = DayForecast(day3ForecastTime, day3WeatherType, day3WeatherTypeIcon, day3HiTemp,  day3LoTemp, day3PrecipChance)
+    val day4Forecast = DayForecast(day4ForecastTime, day4WeatherType, day4WeatherTypeIcon, day4HiTemp,  day4LoTemp, day4PrecipChance)
+    val day5Forecast = DayForecast(day5ForecastTime, day5WeatherType, day5WeatherTypeIcon, day5HiTemp,  day5LoTemp, day5PrecipChance)
+    val dailyForecast = listOf(day1Forecast, day2Forecast, day3Forecast, day4Forecast, day5Forecast)
+
+    return WeatherData(lat, lon, city, state, country, updateTime, current, dailyForecast)
 
 }

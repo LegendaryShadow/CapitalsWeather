@@ -12,9 +12,12 @@ import androidx.room.Query
 @Dao
 interface WeatherDao {
 
-    @Query("SELECT * FROM weather_data_table")
+    @Query("SELECT * FROM weather_data_table ORDER BY display_order")
     fun getAllWeather(): LiveData<List<DatabaseWeatherData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(weatherList: List<DatabaseWeatherData>)
+
+    @Query("SELECT * FROM weather_data_table WHERE lat = :lat AND lon = :lon")
+    fun getWeather(lat: Double, lon: Double): LiveData<DatabaseWeatherData>
 }

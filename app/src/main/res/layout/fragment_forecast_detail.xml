@@ -27,7 +27,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:state="@{viewModel.selectedWeatherData.locationState}"
-            tools:text="Orland Park, IL" />
+            app:country="@{viewModel.selectedWeatherData.locationCountry}"
+            tools:text="Orland Park, IL, US" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/forecastList"

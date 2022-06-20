@@ -20,9 +20,15 @@ import java.util.*
 /**********************************************************
  * Binding adapters used to format TextViews with simple Strings
  */
-@BindingAdapter("city", "state")
-fun TextView.setCityState(city: String, state: String) {
-    text = "${city}, ${state}"
+@BindingAdapter("city", "state", "country")
+fun TextView.setLocationName(city: String, state: String, country: String) {
+    var locStr = "${city}, ${state}, ${country}"
+
+    if (locStr.length > 22) {
+        locStr = "${locStr.substring(0, 22)}…"
+    }
+
+    text = locStr
 }
 
 @BindingAdapter("temperature")

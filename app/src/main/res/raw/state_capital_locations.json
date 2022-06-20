@@ -1,301 +1,401 @@
 [
   {
+    "order" : 1,
     "state" : "AK",
     "city" : "Juneau",
+    "country" : "US",
     "lat" : 58.3005,
     "lon" : -134.4201
   },
   {
+    "order" : 2,
     "state" : "AL",
     "city" : "Montgomery",
+    "country" : "US",
     "lat" : 32.3792,
     "lon" : -86.3077
   },
   {
+    "order" : 3,
     "state" : "AR",
     "city" : "Little Rock",
+    "country" : "US",
     "lat" : 34.7445,
     "lon" : -92.2880
   },
   {
+    "order" : 4,
     "state" : "AZ",
     "city" : "Phoenix",
+    "country" : "US",
     "lat" : 33.4484,
     "lon" : -112.0740
   },
   {
+    "order" : 5,
     "state" : "CA",
     "city" : "Sacramento",
+    "country" : "US",
     "lat" : 38.5816,
     "lon" : -121.4944
   },
   {
+    "order" : 6,
     "state" : "CO",
     "city" : "Denver",
+    "country" : "US",
     "lat" : 39.7392,
     "lon" : -104.9903
   },
   {
+    "order" : 7,
     "state" : "CT",
     "city" : "Hartford",
+    "country" : "US",
     "lat" : 41.7658,
     "lon" : -72.6734
   },
   {
+    "order" : 8,
     "state" : "DE",
     "city" : "Dover",
+    "country" : "US",
     "lat" : 39.1582,
     "lon" : -75.5244
   },
   {
+    "order" : 9,
     "state" : "FL",
     "city" : "Tallahassee",
+    "country" : "US",
     "lat" : 30.4383,
     "lon" : -84.2807
   },
   {
+    "order" : 10,
     "state" : "GA",
     "city" : "Atlanta",
+    "country" : "US",
     "lat" : 33.7490,
     "lon" : -84.3880
   },
   {
+    "order" : 11,
     "state" : "HI",
     "city" : "Honolulu",
+    "country" : "US",
     "lat" : 21.3099,
     "lon" : -157.8581
   },
   {
+    "order" : 12,
     "state" : "IA",
     "city" : "Des Moines",
+    "country" : "US",
     "lat" : 41.5868,
     "lon" : -93.6250
   },
   {
+    "order" : 13,
     "state" : "ID",
     "city" : "Boise",
+    "country" : "US",
     "lat" : 43.6150,
     "lon" : -116.2023
   },
   {
+    "order" : 14,
     "state" : "IL",
     "city" : "Springfield",
+    "country" : "US",
     "lat" : 39.7817,
     "lon" : -89.6501
   },
   {
+    "order" : 15,
     "state" : "IN",
     "city" : "Indianapolis",
+    "country" : "US",
     "lat" : 39.7684,
     "lon" : -86.1581
   },
   {
+    "order" : 16,
     "state" : "KS",
     "city" : "Topeka",
+    "country" : "US",
     "lat" : 39.0473,
     "lon" : -95.6752
   },
   {
+    "order" : 17,
     "state" : "KY",
     "city" : "Frankfort",
+    "country" : "US",
     "lat" : 38.2009,
     "lon" : -84.8733
   },
   {
+    "order" : 18,
     "state" : "LA",
     "city" : "Baton Rouge",
+    "country" : "US",
     "lat" : 30.4515,
     "lon" : -91.1871
   },
   {
+    "order" : 19,
     "state" : "MA",
     "city" : "Boston",
+    "country" : "US",
     "lat" : 42.3601,
     "lon" : -71.0589
   },
   {
+    "order" : 20,
     "state" : "MD",
     "city" : "Annapolis",
+    "country" : "US",
     "lat" : 38.9784,
     "lon" : -76.4922
   },
   {
+    "order" : 21,
     "state" : "ME",
     "city" : "Augusta",
+    "country" : "US",
     "lat" : 44.3106,
     "lon" : -69.7795
   },
   {
+    "order" : 22,
     "state" : "MI",
     "city" : "Lansing",
+    "country" : "US",
     "lat" : 42.7325,
     "lon" : -84.5555
   },
   {
+    "order" : 23,
     "state" : "MN",
     "city" : "Saint Paul",
+    "country" : "US",
     "lat" : 44.9537,
     "lon" : -93.0900
   },
   {
+    "order" : 24,
     "state" : "MO",
     "city" : "Jefferson City",
+    "country" : "US",
     "lat" : 38.5767,
     "lon" : -92.1735
   },
   {
+    "order" : 25,
     "state" : "MS",
     "city" : "Jackson",
+    "country" : "US",
     "lat" : 32.2988,
     "lon" : -90.1848
   },
   {
+    "order" : 26,
     "state" : "MT",
     "city" : "Helena",
+    "country" : "US",
     "lat" : 46.5891,
     "lon" : -112.0391
   },
   {
+    "order" : 27,
     "state" : "NC",
     "city" : "Raleigh",
+    "country" : "US",
     "lat" : 35.7796,
     "lon" : -78.6382
   },
   {
+    "order" : 28,
     "state" : "ND",
     "city" : "Bismarck",
+    "country" : "US",
     "lat" : 46.8083,
     "lon" : -100.7837
   },
   {
+    "order" : 29,
     "state" : "NE",
     "city" : "Lincoln",
+    "country" : "US",
     "lat" : 40.8136,
     "lon" : -96.7026
   },
   {
+    "order" : 30,
     "state" : "NH",
     "city" : "Concord",
+    "country" : "US",
     "lat" : 43.2081,
     "lon" : -71.5376
   },
   {
+    "order" : 31,
     "state" : "NJ",
     "city" : "Trenton",
+    "country" : "US",
     "lat" : 40.2206,
     "lon" : -74.7597
   },
   {
+    "order" : 32,
     "state" : "NM",
     "city" : "Santa Fe",
+    "country" : "US",
     "lat" : 35.6870,
     "lon" : -105.9378
   },
   {
+    "order" : 33,
     "state" : "NV",
     "city" : "Carson City",
+    "country" : "US",
     "lat" : 39.1638,
     "lon" : -119.7674
   },
   {
+    "order" : 34,
     "state" : "NY",
     "city" : "Albany",
+    "country" : "US",
     "lat" : 42.6526,
     "lon" : -73.7562
   },
   {
+    "order" : 35,
     "state" : "OH",
     "city" : "Columbus",
+    "country" : "US",
     "lat" : 39.9612,
     "lon" : -82.9988
   },
   {
+    "order" : 36,
     "state" : "OK",
     "city" : "Oklahoma City",
+    "country" : "US",
     "lat" : 35.4676,
     "lon" : -97.5164
   },
   {
+    "order" : 37,
     "state" : "OR",
     "city" : "Salem",
+    "country" : "US",
     "lat" : 44.9429,
     "lon" : -123.0351
   },
   {
+    "order" : 38,
     "state" : "PA",
     "city" : "Harrisburg",
+    "country" : "US",
     "lat" : 40.2732,
     "lon" : -76.8867
   },
   {
+    "order" : 39,
     "state" : "RI",
     "city" : "Providence",
+    "country" : "US",
     "lat" : 41.8240,
     "lon" : -71.4128
   },
   {
+    "order" : 40,
     "state" : "SC",
     "city" : "Columbia",
+    "country" : "US",
     "lat" : 34.0007,
     "lon" : -81.0348
   },
   {
+    "order" : 41,
     "state" : "SD",
     "city" : "Pierre",
+    "country" : "US",
     "lat" : 44.3668,
     "lon" : -100.3538
   },
   {
+    "order" : 42,
     "state" : "TN",
     "city" : "Nashville",
+    "country" : "US",
     "lat" : 36.1627,
     "lon" : -86.7816
   },
   {
+    "order" : 43,
     "state" : "TX",
     "city" : "Austin",
+    "country" : "US",
     "lat" : 30.2672,
     "lon" : -97.7431
   },
   {
+    "order" : 44,
     "state" : "UT",
     "city" : "Salt Lake City",
+    "country" : "US",
     "lat" : 40.7608,
     "lon" : -111.8910
   },
   {
+    "order" : 45,
     "state" : "VA",
     "city" : "Richmond",
+    "country" : "US",
     "lat" : 37.5407,
     "lon" : -77.4360
   },
   {
+    "order" : 46,
     "state" : "VT",
     "city" : "Montpelier",
+    "country" : "US",
     "lat" : 44.2601,
     "lon" : -72.5754
   },
   {
+    "order" : 47,
     "state" : "WA",
     "city" : "Olympia",
+    "country" : "US",
     "lat" : 47.0379,
     "lon" : -122.9007
   },
   {
+    "order" : 48,
     "state" : "WI",
     "city" : "Madison",
+    "country" : "US",
     "lat" : 43.0722,
     "lon" : -89.4008
   },
   {
+    "order" : 49,
     "state" : "WV",
     "city" : "Charleston",
+    "country" : "US",
     "lat" : 38.3498,
     "lon" : -81.6326
   },
   {
+    "order" : 50,
     "state" : "WY",
     "city" : "Cheyenne",
+    "country" : "US",
     "lat" : 41.1400,
     "lon" : -104.8202
   }
