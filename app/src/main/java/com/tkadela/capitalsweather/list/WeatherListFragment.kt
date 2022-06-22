@@ -52,7 +52,10 @@ class WeatherListFragment : Fragment() {
         viewModel.navigateToForecastDetail.observe(viewLifecycleOwner) { weatherData ->
             if (weatherData != null) {
                 this.findNavController().navigate(
-                    WeatherListFragmentDirections.actionWeatherListFragmentToForecastDetailFragment(weatherData))
+                    WeatherListFragmentDirections.actionWeatherListFragmentToForecastDetailFragment(
+                        weatherData
+                    )
+                )
                 viewModel.displayForecastDetailsComplete()
             }
         }
@@ -63,6 +66,15 @@ class WeatherListFragment : Fragment() {
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) {
                 onNetworkError()
+            }
+        }
+
+        /**
+         * Set observer for "no matches found" LiveData
+         */
+        viewModel.isNoMatchesShown.observe(viewLifecycleOwner) { toastShown ->
+            if (!toastShown) {
+                showNoMatchesMessage()
             }
         }
 
@@ -111,6 +123,14 @@ class WeatherListFragment : Fragment() {
         }
     }
 
+    /**
+     * Show Toast when there are no matches for user search
+     */
+    private fun showNoMatchesMessage() {
+        Toast.makeText(activity, "No matches found", Toast.LENGTH_LONG).show()
+        viewModel.showNoMatchesComplete()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_weather_list, menu)
@@ -152,13 +172,13 @@ class WeatherListFragment : Fragment() {
     private fun showSelectionDialog(locList: List<NetworkLocationInfo>) {
 
         // Convert NetworkLocationInfo to Strings
-        val arrayAdapter = ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice)
+        val arrayAdapter =
+            ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice)
         locList.forEach {
             val stringRep: String
             if (it.stateCode == "") {
                 stringRep = "${it.city}, ${it.state}, ${it.country.uppercase()}"
-            }
-            else {
+            } else {
                 stringRep = "${it.city}, ${it.stateCode}, ${it.country.uppercase()}"
             }
             arrayAdapter.add(stringRep)

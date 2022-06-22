@@ -92,6 +92,13 @@ class WeatherListViewModel(app: Application, isLocationInitialized: Boolean) : A
         get() = _isNewLocationLoaded
 
     /**
+     * Variable that tells the Fragment to show a Toast that no matches were found for the user's search
+     */
+    private val _isNoMatchesShown = MutableLiveData(true)
+    val isNoMatchesShown: LiveData<Boolean>
+        get() = _isNoMatchesShown
+
+    /**
      * Initialize ViewModel by reading the location info from the raw JSON file
      * and then updating the weather database with API calls
      */
@@ -175,6 +182,9 @@ class WeatherListViewModel(app: Application, isLocationInitialized: Boolean) : A
                 // Add directly if only one result
                 weatherRepository.addNewLocationAndWeather(networkLocList[0])
             }
+            else if (networkLocList.size == 0) {
+                _isNoMatchesShown.value = false
+            }
             else {
                 // Show selection dialog if multiple results
                 _locationsToSelectFrom.value = networkLocList
@@ -202,5 +212,10 @@ class WeatherListViewModel(app: Application, isLocationInitialized: Boolean) : A
     // Reset LiveData for location select dialog
     fun locationsDialogComplete() {
         _locationsToSelectFrom.value = null
+    }
+
+    // Reset LiveData for location select dialog
+    fun showNoMatchesComplete() {
+        _isNoMatchesShown.value = true
     }
 }
